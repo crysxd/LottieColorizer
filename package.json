@@ -1,0 +1,27 @@
+{
+  "name": "lottiecolorizer",
+  "version": "1.0.0",
+  "description": "Automatically replace colors in Lottie JSON files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crysxd/LottieColorizer.git"
+  },
+  "author": "Christian Würthner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crysxd/LottieColorizer/issues"
+  },
+  "homepage": "https://github.com/crysxd/LottieColorizer#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^10.0.0",
+    "conf": "^11.0.1"
+  },
+  "bin": {
+    "colorize": "./index.js"
+  }
+}
