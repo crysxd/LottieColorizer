@@ -30,30 +30,28 @@ function loadLut(lutFile) {
     }
 }
 
-function processFile(lut, source, dest) {
-    console.log("Loading", source)
+function processFile(lutFile, source, dest) {
+    const lut = loadLut(lutFile)
     const json = fs.readFileSync(source)
     const lottie = JSON.parse(json)
     var replacementCount = 0
-    const replaceInObject = (obj, indent = 0) => {
+    
+    const replaceInObject = (obj, jsonPath) => {
         Object.keys(obj).forEach((key) => {
             if (key == 'k' && isColor(obj['k'])) {
                 const oldColor = jsonToHex(obj['k'])
                 const newColor = lut[oldColor] || oldColor
                 if (oldColor != newColor) {
-                    console.log(Array(indent).join(" "), "Replacing", oldColor, "=>", newColor)
                     obj['k'] = hexToJson(newColor)
                     replacementCount++
-                } else {
-                    console.log(Array(indent).join(" "), "No replacement for", oldColor)
                 }
             } else if (typeof obj[key] === 'object') {
-                replaceInObject(obj[key], indent + 1)
+                replaceInObject(obj[key])
             }
         })
     }
 
-    replaceInObject(lottie)
+    replaceInObject(lottie, new Array())
     fs.writeFileSync(dest, JSON.stringify(lottie))
     console.log(`Replaced ${replacementCount} colors in ${source} => ${dest}`)
 }    
@@ -72,10 +70,16 @@ function hexToJson(hex) {
 }
 
 function jsonToHex(json) {
-    const r = Math.round((json[0] || 0) * 255).toString(16)
-    const g = Math.round((json[1] || 0) * 255).toString(16)
-    const b = Math.round((json[2] || 0) * 255).toString(16)
-    const a = Math.round((json[3] || 0) * 255).toString(16)
+    const parse = (index) => {
+        const hex =  Math.round((json[index] || 0) * 255).toString(16)
+        const fixed = `0${hex}`
+        return fixed.substring(fixed.length - 2)
+    }
+
+    const r = parse(0)
+    const g = parse(1)
+    const b = parse(2)
+    const a = parse(3)
     return `#${a}${r}${g}${b}`.toUpperCase()
 }
 
