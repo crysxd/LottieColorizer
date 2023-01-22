@@ -62,10 +62,10 @@ function isColor(json) {
 
 function hexToJson(hex) {
     return [
-        parseInt(hex.substring(3, 4), 16) / 255.0, // R
-        parseInt(hex.substring(5, 6), 16) / 255.0, // G
-        parseInt(hex.substring(7, 8), 16) / 255.0, // B
-        parseInt(hex.substring(1, 2), 16) / 255.0, // A
+        parseInt(hex.substring(3, 5), 16) / 255.0, // R
+        parseInt(hex.substring(5, 7), 16) / 255.0, // G
+        parseInt(hex.substring(7, 9), 16) / 255.0, // B
+        parseInt(hex.substring(1, 3), 16) / 255.0, // A
     ]
 }
 
