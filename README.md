@@ -11,7 +11,7 @@ npm install -g
 
 ### Test your configuration
 ```
-colorize list path/to/config.json
+colorize show-config path/to/config.json
 ```
 
 ### Colorize a Lottie file
